@@ -7,13 +7,16 @@ const CategorySelector = (props) => {
   const categoryFields = categories.map(
     (category, i) => {
 
-     const checked = category === props.activeCategory
+     const checked = category === props.radioSort //props.radioSort
+
 
       return (
         <CategoryField
           key={ i }
           checked={ checked }
-          category={ category }
+          category={ category } // this is the name
+          handleChange={props.handleChange}
+          radioSort={props.radioSort}
         />
       )
     }
