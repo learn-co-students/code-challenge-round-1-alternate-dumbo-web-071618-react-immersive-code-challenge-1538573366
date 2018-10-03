@@ -7,6 +7,16 @@ const TransactionsList = (props) => {
   console.log(props)
 
 
+  let mappedTransactions = () => {
+
+
+        return props.transactionArray.map((transaction) => {
+          return <Transaction  transaction={transaction}/>
+        })
+
+  }
+
+
 
   return (
     <table className="ui celled striped padded table">
@@ -34,7 +44,7 @@ const TransactionsList = (props) => {
           </th>
         </tr>
 
-      <Transaction transaction={props.transaction}/>
+    {mappedTransactions()}
 
       </tbody>
     </table>

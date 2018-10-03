@@ -35,19 +35,16 @@ class AccountContainer extends Component {
   displayTransactions = () => {
 
 
-    if(this.state.radioSelect != "All"){
+    if(this.state.radioSelect !== "All"){
 
 
       return this.state.transactionsArray.filter((transaction) => {
 
-        return  transaction.type === this.state.radioSelect
+        return  transaction.category === this.state.radioSelect
 
-  })}
-
-
-    return this.state.transactionsArray.map((transaction) => {
-      return <TransactionsList  transaction={transaction}/>
-    })
+  })}else{
+    return this.state.transactionsArray
+  }
 
   }
 
@@ -56,9 +53,9 @@ class AccountContainer extends Component {
     return (
       <div className="ui grid container">
 
-        <CategorySelector handleChange={this.handleChange}/>
+        <CategorySelector handleChange={this.handleChange} radioSelect={this.state.radioSelect}/>
 
-        {this.displayTransactions()}
+        <TransactionsList  transactionArray={this.displayTransactions()}/>
 
       </div>
     )
