@@ -4,23 +4,61 @@ import CategorySelector from './CategorySelector'
 import {transactions} from '../transactionsData'
 
 class AccountContainer extends Component {
-  constructor() {
-    super()
-    //... your code here
+  constructor(props) {
+    super(props)
+    this.state = { transactionsArray: [],
+                  radioSelect: "All"
+
+    }
   }
 
-  handleChange() {
-    //... your code here
+  componentDidMount(){
+
+    fetch('https://boiling-brook-94902.herokuapp.com/transactions')
+    .then(res => res.json())
+    .then(transactions => {
+      this.setState({transactionsArray: transactions})
+    })
+
+
+
+  }
+
+  handleChange = (category) => {
+
+    console.log(category)
+
+    this.setState({radioSelect: category})
+
+  }
+
+  displayTransactions = () => {
+
+
+    if(this.state.radioSelect != "All"){
+
+
+      return this.state.transactionsArray.filter((transaction) => {
+
+        return  transaction.type === this.state.radioSelect
+
+  })}
+
+
+    return this.state.transactionsArray.map((transaction) => {
+      return <TransactionsList  transaction={transaction}/>
+    })
+
   }
 
   render() {
-    console.log(transactions)
+    console.log(this.state)
     return (
       <div className="ui grid container">
 
-        <CategorySelector />
+        <CategorySelector handleChange={this.handleChange}/>
 
-        <TransactionsList />
+        {this.displayTransactions()}
 
       </div>
     )
