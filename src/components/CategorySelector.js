@@ -12,8 +12,9 @@ const CategorySelector = (props) => {
       return (
         <CategoryField
           key={ i }
-          checked={ checked }
+          checked={ props.checked ===  category}
           category={ category }
+          handleChange={props.handleChange}
         />
       )
     }
